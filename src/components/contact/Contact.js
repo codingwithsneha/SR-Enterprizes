@@ -1,35 +1,61 @@
 // src/components/contact/Contact.js
-import React, { useState } from 'react';
-import './Contact.css';
+import React, { useState } from "react";
+import emailjs from "@emailjs/browser";
+import "./Contact.css";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    message: ''
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
   });
+
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Since this is frontend only, we'll just show a success message
-    // In production, you can use EmailJS or Formspree for actual form submission
-    console.log('Form submitted:', formData);
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 5000);
-    setFormData({ name: '', email: '', phone: '', message: '' });
+
+    setLoading(true);
+
+    emailjs
+      .send(
+        "service_atdfnnm",
+        "template_ztvjg8o",
+        formData,
+        "BcbpYOi7T1FRwGWqH", // 🔁 replace with your actual public key
+      )
+      .then(() => {
+        setSubmitted(true);
+        setLoading(false);
+
+        setTimeout(() => setSubmitted(false), 5000);
+
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          message: "",
+        });
+      })
+      .catch((error) => {
+        console.error("FAILED...", error);
+        setLoading(false);
+        alert("Failed to send message. Please try again.");
+      });
   };
 
   return (
     <main>
+      {/* Hero Section */}
       <section className="contact-hero">
         <div className="container">
           <h1>Contact Us</h1>
@@ -37,16 +63,21 @@ const Contact = () => {
         </div>
       </section>
 
+      {/* Content */}
       <section className="contact-content">
         <div className="container">
           <div className="contact-grid">
+            {/* Contact Info */}
             <div className="contact-info">
               <h2>Get In Touch</h2>
+
               <div className="info-item">
                 <span className="info-icon">📍</span>
                 <div>
                   <h3>Office Address</h3>
-                  <p>Plot No. 5A, Dhongade Nagar, Deolali, Nashik Road, Nashik</p>
+                  <p>
+                    Plot No. 5A, Dhongade Nagar, Deolali, Nashik Road, Nashik
+                  </p>
                 </div>
               </div>
 
@@ -62,7 +93,7 @@ const Contact = () => {
                 <span className="info-icon">✉️</span>
                 <div>
                   <h3>Email Address</h3>
-                  <p>swarae200@gmail.com</p>
+                  <p>yashpalsawant1212@gmail.com</p>
                 </div>
               </div>
 
@@ -75,26 +106,31 @@ const Contact = () => {
                 </div>
               </div>
 
+              {/* Map */}
               <div className="map-container">
                 <iframe
                   title="Office Location"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3749.5!2d73.8!3d19.9!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTnCsDU0JzAwLjAiTiA3M8KwNDgnMDAuMCJF!5e0!3m2!1sen!2sin!4v1234567890!5m2!1sen!2sin"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3750.310232635096!2d73.83091312397636!3d19.953451373843773!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bdd9553d68701ab%3A0xf2819338b22edc36!2sDhongade%20Nagar%2C%20Gayakhe%20Colony%2C%20Deolali%20Gaon%2C%20Nashik%2C%20Maharashtra%20422101!5e0!3m2!1sen!2sin!4v1775982952271!5m2!1sen!2sin"
                   width="100%"
                   height="300"
                   style={{ border: 0 }}
                   allowFullScreen=""
                   loading="lazy"
-                ></iframe>
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
               </div>
             </div>
 
+            {/* Contact Form */}
             <div className="contact-form-container">
               <h2>Send Us a Message</h2>
+
               {submitted && (
                 <div className="success-message">
-                  Thank you! We'll get back to you soon.
+                  ✅ Thank you! Your message has been sent.
                 </div>
               )}
+
               <form onSubmit={handleSubmit} className="contact-form">
                 <div className="form-group">
                   <input
@@ -106,6 +142,7 @@ const Contact = () => {
                     required
                   />
                 </div>
+
                 <div className="form-group">
                   <input
                     type="email"
@@ -116,6 +153,7 @@ const Contact = () => {
                     required
                   />
                 </div>
+
                 <div className="form-group">
                   <input
                     type="tel"
@@ -125,6 +163,7 @@ const Contact = () => {
                     onChange={handleChange}
                   />
                 </div>
+
                 <div className="form-group">
                   <textarea
                     name="message"
@@ -135,8 +174,13 @@ const Contact = () => {
                     required
                   ></textarea>
                 </div>
-                <button type="submit" className="btn submit-btn">
-                  Send Message
+
+                <button
+                  type="submit"
+                  className="btn submit-btn"
+                  disabled={loading}
+                >
+                  {loading ? "Sending..." : "Send Message"}
                 </button>
               </form>
             </div>

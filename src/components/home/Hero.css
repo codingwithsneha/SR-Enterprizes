@@ -1,7 +1,10 @@
 /* src/components/home/Hero.css */
+
 .hero {
   min-height: 100vh;
-  background: linear-gradient(135deg, #0066CC 0%, #3399FF 100%);
+
+  background: radial-gradient(circle at 20% 30%, #1e3a8a, #0066CC 40%, #3399FF 100%);
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -9,341 +12,81 @@
   position: relative;
   margin-top: 70px;
   overflow: hidden;
+
+  animation: zoomBg 25s ease-in-out infinite alternate;
 }
 
-/* Rectangular Grid Pattern */
-.hero::before {
-  content: '';
+/* =========================
+   Glow Effect
+========================= */
+.hero-glow {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: 
-    /* Vertical lines */
-    repeating-linear-gradient(
-      90deg,
-      transparent,
-      transparent 59px,
-      rgba(255, 255, 255, 0.12) 59px,
-      rgba(255, 255, 255, 0.12) 60px
-    ),
-    /* Horizontal lines */
-    repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 59px,
-      rgba(255, 255, 255, 0.12) 59px,
-      rgba(255, 255, 255, 0.12) 60px
-    );
-  animation: moveRectangular 12s linear infinite;
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* 45-Degree Cross Lines */
-.hero::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: 
-    /* 45-degree diagonal lines */
-    repeating-linear-gradient(
-      45deg,
-      transparent,
-      transparent 79px,
-      rgba(255, 255, 255, 0.1) 79px,
-      rgba(255, 255, 255, 0.1) 80px
-    ),
-    /* 135-degree diagonal lines (cross) */
-    repeating-linear-gradient(
-      135deg,
-      transparent,
-      transparent 79px,
-      rgba(255, 255, 255, 0.1) 79px,
-      rgba(255, 255, 255, 0.1) 80px
-    );
-  animation: moveCross 18s linear infinite;
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Additional Moving Rectangular Blocks */
-.rectangular-lines {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: repeating-linear-gradient(
-    90deg,
-    transparent,
-    transparent 119px,
-    rgba(255, 255, 255, 0.08) 119px,
-    rgba(255, 255, 255, 0.08) 120px
-  );
-  animation: moveRectangularReverse 15s linear infinite;
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* 45-Degree Cross Lines - Second Layer */
-.cross-lines-45 {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: repeating-linear-gradient(
-    45deg,
-    transparent,
-    transparent 49px,
-    rgba(255, 255, 255, 0.06) 49px,
-    rgba(255, 255, 255, 0.06) 50px
-  );
-  animation: moveCrossFast 10s linear infinite;
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* 135-Degree Cross Lines - Second Layer */
-.cross-lines-135 {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: repeating-linear-gradient(
-    135deg,
-    transparent,
-    transparent 49px,
-    rgba(255, 255, 255, 0.06) 49px,
-    rgba(255, 255, 255, 0.06) 50px
-  );
-  animation: moveCrossFastReverse 12s linear infinite;
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Animations for Rectangular Lines */
-@keyframes moveRectangular {
-  0% {
-    background-position: 0 0;
-  }
-  100% {
-    background-position: 60px 60px;
-  }
-}
-
-@keyframes moveRectangularReverse {
-  0% {
-    background-position: 0 0;
-  }
-  100% {
-    background-position: -120px 0;
-  }
-}
-
-/* Animations for Cross Lines */
-@keyframes moveCross {
-  0% {
-    background-position: 0 0;
-  }
-  100% {
-    background-position: 80px 80px;
-  }
-}
-
-@keyframes moveCrossFast {
-  0% {
-    background-position: 0 0;
-  }
-  100% {
-    background-position: 50px 50px;
-  }
-}
-
-@keyframes moveCrossFastReverse {
-  0% {
-    background-position: 0 0;
-  }
-  100% {
-    background-position: -50px 50px;
-  }
-}
-
-/* Animated Circles for Softness */
-.circle {
-  position: absolute;
-  background: rgba(255, 255, 255, 0.06);
-  border-radius: 50%;
-  animation: float 20s infinite ease-in-out;
-  backdrop-filter: blur(3px);
-  z-index: 0;
-}
-
-.circle-1 {
-  width: 300px;
-  height: 300px;
-  top: -150px;
-  left: -150px;
-  animation-delay: 0s;
-}
-
-.circle-2 {
-  width: 500px;
-  height: 500px;
-  bottom: -250px;
-  right: -250px;
-  animation-delay: 2s;
-}
-
-.circle-3 {
-  width: 200px;
-  height: 200px;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(0,102,204,0.4), transparent 70%);
   top: 50%;
-  left: 10%;
-  animation-delay: 4s;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  filter: blur(100px);
+  z-index: 1;
+  animation: pulseGlow 6s ease-in-out infinite;
 }
 
-.circle-4 {
-  width: 400px;
-  height: 400px;
-  bottom: 20%;
-  right: 5%;
-  animation-delay: 6s;
-}
-
-/* Floating Animation for Circles */
-@keyframes float {
+@keyframes pulseGlow {
   0%, 100% {
-    transform: translateY(0px) translateX(0px) scale(1);
-    opacity: 0.3;
-  }
-  25% {
-    transform: translateY(-30px) translateX(20px) scale(1.05);
-    opacity: 0.5;
+    transform: translate(-50%, -50%) scale(1);
   }
   50% {
-    transform: translateY(30px) translateX(-20px) scale(0.95);
-    opacity: 0.4;
-  }
-  75% {
-    transform: translateY(-20px) translateX(-15px) scale(1.02);
-    opacity: 0.45;
+    transform: translate(-50%, -50%) scale(1.2);
   }
 }
 
-/* Pulsing Rectangular Boxes */
-.rect-box {
-  position: absolute;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.02);
-  animation: pulseRect 5s ease-in-out infinite;
-  pointer-events: none;
-  z-index: 0;
+/* =========================
+   Logo Styling (NEW)
+========================= */
+.hero-logo {
+  width: 140px;
+  height: auto;
+  margin-bottom: 20px;
+  border-radius: 12px;
+
+  /* subtle glow */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+
+  animation: fadeIn 1s ease-in-out;
 }
 
-.rect-1 {
-  width: 80px;
-  height: 80px;
-  top: 15%;
-  left: 8%;
-  animation-delay: 0s;
-}
-
-.rect-2 {
-  width: 120px;
-  height: 120px;
-  bottom: 20%;
-  right: 10%;
-  animation-delay: 1s;
-}
-
-.rect-3 {
-  width: 60px;
-  height: 60px;
-  top: 60%;
-  right: 20%;
-  animation-delay: 2s;
-}
-
-.rect-4 {
-  width: 100px;
-  height: 100px;
-  bottom: 10%;
-  left: 15%;
-  animation-delay: 1.5s;
-}
-
-.rect-5 {
-  width: 90px;
-  height: 90px;
-  top: 30%;
-  right: 30%;
-  animation-delay: 2.5s;
-}
-
-@keyframes pulseRect {
-  0%, 100% {
-    transform: scale(1) rotate(0deg);
-    opacity: 0.2;
-    border-width: 1px;
-  }
-  50% {
-    transform: scale(1.15) rotate(3deg);
-    opacity: 0.5;
-    border-width: 2px;
-  }
-}
-
-/* Gradient Overlay for Depth */
-.gradient-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.05) 100%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Hero Content */
-.hero-content {
-  max-width: 800px;
-  padding: 0 20px;
+/* =========================
+   Content
+========================= */
+.hero-inner {
   z-index: 2;
-  position: relative;
+  /* padding: 2px; */
+  max-width: 900px;
 }
 
-/* Text Animations */
+/* =========================
+   Typography
+========================= */
 .hero h1 {
   font-size: 3.5rem;
-  margin-bottom: 1rem;
+  /* margin-bottom: 1rem; */
   color: #FFFFFF;
-  animation: slideInUp 0.8s ease-out;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+  text-shadow: 0 4px 25px rgba(0, 0, 0, 0.8);
 }
 
-@keyframes slideInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.hero p {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.95);
+  /* margin-bottom: 2rem; */
+
+  text-shadow: 0 3px 15px rgba(0, 0, 0, 0.7);
 }
 
 .highlight {
-  color: rgba(255, 255, 255, 0.95);
+  color: #ffffff;
   position: relative;
-  display: inline-block;
 }
 
 .highlight::after {
@@ -354,44 +97,26 @@
   width: 100%;
   height: 8px;
   background: rgba(255, 255, 255, 0.3);
-  z-index: -1;
   border-radius: 4px;
-  animation: expandWidth 0.6s ease-out 0.3s both;
 }
 
-@keyframes expandWidth {
-  from {
-    width: 0;
-  }
-  to {
-    width: 100%;
-  }
-}
-
-.hero p {
-  font-size: 1.2rem;
-  color: rgba(255, 255, 255, 0.9);
-  margin-bottom: 2rem;
-  animation: slideInUp 0.8s ease-out 0.2s both;
-}
-
+/* =========================
+   Buttons
+========================= */
 .hero-buttons {
   display: flex;
   gap: 1rem;
   justify-content: center;
-  animation: slideInUp 0.8s ease-out 0.4s both;
 }
 
-/* Button Styles */
 .hero-buttons .btn {
   background-color: #FFFFFF;
   color: #0066CC;
   padding: 12px 30px;
-  border-radius: 5px;
+  border-radius: 8px;
   text-decoration: none;
   font-weight: 500;
   transition: all 0.3s ease;
-  display: inline-block;
 }
 
 .hero-buttons .btn-outline {
@@ -401,8 +126,8 @@
 }
 
 .hero-buttons .btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
 
 .hero-buttons .btn-outline:hover {
@@ -410,15 +135,22 @@
   color: #0066CC;
 }
 
-/* Fade In Up Animation */
-.fade-in-up {
-  animation: fadeInUp 0.8s ease-out;
+/* =========================
+   Animations
+========================= */
+@keyframes zoomBg {
+  from {
+    background-size: 100%;
+  }
+  to {
+    background-size: 115%;
+  }
 }
 
-@keyframes fadeInUp {
+@keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(-10px);
   }
   to {
     opacity: 1;
@@ -426,62 +158,74 @@
   }
 }
 
-/* Responsive Design */
+/* =========================
+   Responsive
+========================= */
 @media (max-width: 768px) {
-  .hero {
-    margin-top: 60px;
-    min-height: 80vh;
-  }
-  
   .hero h1 {
     font-size: 2rem;
   }
-  
+
   .hero p {
     font-size: 1rem;
   }
-  
+
+  .hero-logo {
+    width: 100px;
+  }
+
   .hero-buttons {
     flex-direction: column;
     align-items: center;
   }
-  
+
   .hero-buttons .btn {
     width: 200px;
   }
-  
-  .circle-1 {
-    width: 200px;
-    height: 200px;
+}
+
+.bounce-in {
+  animation: bounceIn 1.2s ease;
+}
+
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.5) translateY(-100px);
+    opacity: 0;
   }
-  
-  .circle-2 {
-    width: 300px;
-    height: 300px;
+  60% {
+    transform: scale(1.1) translateY(20px);
+    opacity: 1;
   }
-  
-  .circle-3 {
-    width: 150px;
-    height: 150px;
+  80% {
+    transform: scale(0.95) translateY(-10px);
   }
-  
-  .circle-4 {
-    width: 250px;
-    height: 250px;
-  }
-  
-  .rect-1, .rect-2, .rect-3, .rect-4, .rect-5 {
-    transform: scale(0.7);
+  100% {
+    transform: scale(1) translateY(0);
   }
 }
 
-@media (max-width: 480px) {
-  .hero h1 {
-    font-size: 1.5rem;
+.slide-up {
+  opacity: 0;
+  transform: translateY(40px);
+  animation: slideUp 0.8s ease forwards;
+}
+
+@keyframes slideUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  .hero::before,
-  .hero::after {
-    background-size: 30px 30px;
-  }
+}
+
+.delay-1 {
+  animation-delay: 0.3s;
+}
+
+.delay-2 {
+  animation-delay: 0.6s;
+}
+
+.delay-3 {
+  animation-delay: 0.9s;
 }

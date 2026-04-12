@@ -6,26 +6,38 @@ import './Hero.css';
 const Hero = () => {
   return (
     <section className="hero">
-      {/* Animated Background Elements */}
-      <div className="bg-animation">
-        <div className="circle circle-1"></div>
-        <div className="circle circle-2"></div>
-        <div className="circle circle-3"></div>
-        <div className="circle circle-4"></div>
-      </div>
 
-      <div className="hero-content">
-        <h1 className="fade-in-up">
-          Your Trusted Partner in<br />
+      <div className="hero-glow"></div>
+
+      <div className="hero-inner">
+
+        {/* Logo with bounce */}
+        <img
+          src={`${process.env.PUBLIC_URL}/images/SRLOGO.jpg`}
+          alt="SR Enterprises Logo"
+          className="hero-logo bounce-in"
+        />
+
+        {/* Content with swipe animations */}
+        <h1 className="slide-up delay-1">
+          Your Trusted Partner in <br />
           <span className="highlight">FMCG Distribution</span>
         </h1>
-        <p className="fade-in-up">
-          From Warehouse to Retail - We Deliver Excellence
+
+        <p className="slide-up delay-2">
+          From Warehouse to Retail — We Deliver Excellence
         </p>
-        <div className="hero-buttons fade-in-up">
-          <Link to="/products" className="btn">Explore Products</Link>
-          <Link to="/contact" className="btn btn-outline">Contact Us</Link>
+
+        <div className="hero-buttons slide-up delay-3">
+          <Link to="/products" className="btn">
+            Explore Products
+          </Link>
+
+          <Link to="/contact" className="btn btn-outline">
+            Contact Us
+          </Link>
         </div>
+
       </div>
     </section>
   );

@@ -1,11 +1,9 @@
-// src/components/home/BrandImages.js - Carousel Version with New Animation
-import React, { useEffect, useRef } from 'react';
+// src/components/home/BrandImages.js
+import React, { useEffect, useState } from 'react';
 import './BrandImages.css';
 
 const BrandImages = () => {
-  const sliderRef1 = useRef(null);
-  const sliderRef2 = useRef(null);
-  
+
   const brands = [
     { id: 1, name: 'Anmol', imagePath: '/images/brands/anmol.png' },
     { id: 2, name: 'Britannia', imagePath: '/images/brands/britania.svg' },
@@ -28,109 +26,119 @@ const BrandImages = () => {
     { id: 19, name: 'Wipro', imagePath: '/images/brands/wipro.svg' }
   ];
 
-  // Split brands into 2 rows
-  const midPoint = Math.ceil(brands.length / 2);
-  const firstRowBrands = brands.slice(0, midPoint);
-  const secondRowBrands = brands.slice(midPoint);
+  const itemsPerSlide = 4;
 
-  // Duplicate brands for seamless scrolling
-  const duplicatedFirstRow = [...firstRowBrands, ...firstRowBrands];
-  const duplicatedSecondRow = [...secondRowBrands, ...secondRowBrands];
+  const createSlides = (brands) => {
+    const slides = [];
+    const total = brands.length;
 
-  // Auto-scroll for first row with new speed
-  useEffect(() => {
-    const slider = sliderRef1.current;
-    let scrollAmount = 0;
-    let scrollInterval;
+    for (let i = 0; i < total; i += itemsPerSlide) {
+      let chunk = brands.slice(i, i + itemsPerSlide);
 
-    const autoScroll = () => {
-      if (slider) {
-        scrollAmount += 1.2;
-        if (scrollAmount >= slider.scrollWidth / 2) {
-          scrollAmount = 0;
-        }
-        slider.scrollLeft = scrollAmount;
+      if (chunk.length < itemsPerSlide) {
+        chunk = [...chunk, ...brands.slice(0, itemsPerSlide - chunk.length)];
       }
-    };
 
-    scrollInterval = setInterval(autoScroll, 30);
+      slides.push(chunk);
+    }
 
-    return () => clearInterval(scrollInterval);
+    return slides;
+  };
+
+  const firstRow = brands.slice(0, Math.ceil(brands.length / 2));
+  const secondRow = brands.slice(Math.ceil(brands.length / 2));
+
+  const firstSlides = createSlides(firstRow);
+  const secondSlides = createSlides(secondRow);
+
+  // 🔥 duplicate slides for infinite illusion
+  const loopFirstSlides = [...firstSlides, ...firstSlides];
+  const loopSecondSlides = [...secondSlides, ...secondSlides];
+
+  const [index1, setIndex1] = useState(0);
+  const [index2, setIndex2] = useState(0);
+  const [transition, setTransition] = useState(true);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex1((prev) => prev + 1);
+      setIndex2((prev) => prev + 1);
+    }, 3000);
+
+    return () => clearInterval(interval);
   }, []);
 
-  // Auto-scroll for second row (opposite direction)
+  // 🔥 Reset without jump
   useEffect(() => {
-    const slider = sliderRef2.current;
-    let scrollAmount = 0;
-    let scrollInterval;
+    if (index1 === firstSlides.length) {
+      setTimeout(() => {
+        setTransition(false);
+        setIndex1(0);
+      }, 800);
+    } else {
+      setTransition(true);
+    }
+  }, [index1, firstSlides.length]);
 
-    const autoScroll = () => {
-      if (slider) {
-        scrollAmount -= 1.2;
-        if (scrollAmount <= -slider.scrollWidth / 2) {
-          scrollAmount = 0;
-        }
-        slider.scrollLeft = scrollAmount;
-      }
-    };
-
-    scrollInterval = setInterval(autoScroll, 30);
-
-    return () => clearInterval(scrollInterval);
-  }, []);
+  useEffect(() => {
+    if (index2 === secondSlides.length) {
+      setTimeout(() => {
+        setTransition(false);
+        setIndex2(0);
+      }, 800);
+    } else {
+      setTransition(true);
+    }
+  }, [index2, secondSlides.length]);
 
   return (
-    <section className="brand-images-section carousel-mode">
-      <div className="container">
-        <h2 className="brands-title">Our Trusted Brands</h2>
-        <p className="brands-subtitle">Partnering with India's Leading FMCG Companies</p>
-        
-        {/* Row 1 - Scrolls Left to Right */}
-        <div className="brands-carousel-wrapper">
-          <div className="brands-carousel" ref={sliderRef1}>
-            <div className="brands-track">
-              {duplicatedFirstRow.map((brand, index) => (
-                <div key={`row1-${index}`} className="brand-item-sharp">
-                  <img 
-                    src={brand.imagePath} 
-                    alt={brand.name}
-                    className="brand-logo-carousel-sharp"
-                    loading="lazy"
-                    onError={(e) => {
-                      e.target.onerror = null;
-                      e.target.style.display = 'none';
-                      e.target.parentElement.innerHTML = `<div class="brand-placeholder-sharp">${brand.name}</div>`;
-                    }}
-                  />
-                  <p className="brand-name-sharp">{brand.name}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+    <section className="brand-images-section">
+      <h2 className="brands-title">Our Trusted Brands</h2>
+      <p className="brands-subtitle">
+        Partnering with India's Leading FMCG Companies
+      </p>
 
-        {/* Row 2 - Scrolls Right to Left */}
-        <div className="brands-carousel-wrapper">
-          <div className="brands-carousel" ref={sliderRef2}>
-            <div className="brands-track">
-              {duplicatedSecondRow.map((brand, index) => (
-                <div key={`row2-${index}`} className="brand-item-sharp">
-                  <img 
-                    src={brand.imagePath} 
-                    alt={brand.name}
-                    className="brand-logo-carousel-sharp"
-                    loading="lazy"
-                    onError={(e) => {
-                      e.target.onerror = null;
-                      e.target.style.display = 'none';
-                      e.target.parentElement.innerHTML = `<div class="brand-placeholder-sharp">${brand.name}</div>`;
-                    }}
-                  />
-                  <p className="brand-name-sharp">{brand.name}</p>
+      {/* Row 1 */}
+      <div className="brands-slider">
+        <div
+          className="brands-track"
+          style={{
+            transform: `translateX(-${index1 * 100}%)`,
+            transition: transition ? 'transform 0.8s ease-in-out' : 'none'
+          }}
+        >
+          {loopFirstSlides.map((slide, i) => (
+            <div className="slide" key={i}>
+              {slide.map((brand) => (
+                <div key={brand.id + i} className="brand-item">
+                  <img src={brand.imagePath} alt={brand.name} />
+                  <p>{brand.name}</p>
                 </div>
               ))}
             </div>
-          </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Row 2 */}
+      <div className="brands-slider">
+        <div
+          className="brands-track"
+          style={{
+            transform: `translateX(-${index2 * 100}%)`,
+            transition: transition ? 'transform 0.8s ease-in-out' : 'none'
+          }}
+        >
+          {loopSecondSlides.map((slide, i) => (
+            <div className="slide" key={i}>
+              {slide.map((brand) => (
+                <div key={brand.id + i} className="brand-item">
+                  <img src={brand.imagePath} alt={brand.name} />
+                  <p>{brand.name}</p>
+                </div>
+              ))}
+            </div>
+          ))}
         </div>
       </div>
     </section>
