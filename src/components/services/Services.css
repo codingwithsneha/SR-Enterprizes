@@ -1,0 +1,70 @@
+/* src/components/services/Services.css - Update hero section */
+.services-hero {
+  background: linear-gradient(135deg, #0066CC 0%, #3399FF 100%);
+  color: white;
+  text-align: center;
+  padding: 150px 0 80px;
+  margin-top: 70px;
+}
+
+.services-hero h1 {
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.services-hero p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+.services-content {
+  padding: 80px 0;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.service-card {
+  text-align: center;
+  padding: 2rem;
+  background: var(--bg-white);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: 1px solid rgba(0, 102, 204, 0.15);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 102, 204, 0.1);
+  border-color: var(--primary-color);
+}
+
+.service-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.service-card h3 {
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+.service-card p {
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .services-hero {
+    padding: 120px 0 60px;
+  }
+  
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,79 @@
+/* src/components/about/About.css - Update hero section */
+.about-hero {
+  background: linear-gradient(135deg, #0066CC 0%, #3399FF 100%);
+  color: white;
+  text-align: center;
+  padding: 150px 0 80px;
+  margin-top: 70px;
+}
+
+.about-hero h1 {
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.about-hero p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+.about-content {
+  padding: 80px 0;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 4rem;
+}
+
+.about-text h2,
+.about-mission h2 {
+  text-align: left;
+}
+
+.about-text h2:after,
+.about-mission h2:after {
+  left: 0;
+  transform: translateX(0);
+}
+
+.company-details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.detail-card {
+  background: var(--bg-white);
+  padding: 2rem;
+  border-radius: 10px;
+  text-align: center;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 102, 204, 0.15);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.detail-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--primary-color);
+  box-shadow: 0 5px 20px rgba(0, 102, 204, 0.1);
+}
+
+.detail-card h3 {
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .about-hero {
+    padding: 120px 0 60px;
+  }
+  
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}

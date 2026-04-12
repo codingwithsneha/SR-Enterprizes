@@ -1,0 +1,239 @@
+/* src/components/products/Products.css - Updated with light gradient */
+.products-page {
+  min-height: 100vh;
+}
+
+.products-hero {
+  background: linear-gradient(135deg, #0066CC 0%, #3399FF 100%);
+  color: white;
+  text-align: center;
+  padding: 150px 0 80px;
+  margin-top: 70px;
+  margin-bottom: 60px;
+}
+
+.products-hero h1 {
+  color: white;
+  margin-bottom: 1rem;
+  font-size: 3rem;
+}
+
+.hero-subtitle {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+.products-main {
+  padding: 0;
+  background: #FFFFFF;
+  margin-bottom: 60px;
+}
+
+/* Full Width Categories List - No max-width constraint */
+.products-list-fullwidth {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0;
+}
+
+/* Category Accordion - Full Width with Light Gradient */
+.category-accordion-fullwidth {
+  width: 100%;
+  background: linear-gradient(135deg, #E6F0FF 0%, #F0F7FF 100%);
+  margin-bottom: 1px;
+  overflow: hidden;
+}
+
+/* Category Header Styles */
+.category-header-fullwidth {
+  width: 100%;
+  padding: 1.5rem 2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: transparent;
+}
+
+.category-header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.category-name-fullwidth {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 0;
+  color: #0066CC;
+  letter-spacing: 0.5px;
+}
+
+.accordion-icon-fullwidth {
+  display: inline-block;
+  transition: transform 0.3s ease;
+  color: #0066CC;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.accordion-icon-fullwidth.rotated {
+  transform: rotate(180deg);
+}
+
+/* Products Container - Light background full width */
+.category-products-fullwidth {
+  width: 100%;
+  background: #F8FBFF;
+  animation: slideDown 0.3s ease;
+  padding: 0;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Product Items - Full width with light color */
+.product-item-fullwidth {
+  width: 100%;
+  padding: 0.8rem 2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: #F8FBFF;
+  border-bottom: 1px solid rgba(0, 102, 204, 0.08);
+}
+
+.product-item-fullwidth:hover {
+  background: #FFFFFF;
+  transform: translateX(5px);
+}
+
+.product-header-content {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.product-name-fullwidth {
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 0;
+  color: #0066CC;
+  letter-spacing: 0.3px;
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.product-name-fullwidth::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #0066CC;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+/* Last product item should not have border */
+.product-item-fullwidth:last-child {
+  border-bottom: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .products-hero {
+    padding: 120px 0 60px;
+    margin-top: 60px;
+    margin-bottom: 40px;
+  }
+
+  .products-hero h1 {
+    font-size: 2rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+
+  .products-main {
+    margin-bottom: 40px;
+  }
+
+  .category-header-fullwidth {
+    padding: 1.2rem 1.5rem;
+  }
+
+  .category-name-fullwidth {
+    font-size: 1.1rem;
+  }
+
+  .accordion-icon-fullwidth {
+    font-size: 1rem;
+  }
+
+  .product-item-fullwidth {
+    padding: 0.7rem 1.5rem;
+  }
+
+  .product-name-fullwidth {
+    font-size: 0.9rem;
+    padding-left: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .products-hero {
+    margin-bottom: 30px;
+  }
+
+  .products-main {
+    margin-bottom: 30px;
+  }
+
+  .category-header-fullwidth {
+    padding: 1rem;
+  }
+
+  .category-name-fullwidth {
+    font-size: 1rem;
+  }
+
+  .product-item-fullwidth {
+    padding: 0.6rem 1rem;
+  }
+
+  .product-name-fullwidth {
+    font-size: 0.85rem;
+    padding-left: 1rem;
+  }
+}
+
+/* Animation for products appearing */
+@keyframes fadeInProduct {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.product-item-fullwidth {
+  animation: fadeInProduct 0.3s ease backwards;
+}
+
+.product-item-fullwidth:nth-child(1) { animation-delay: 0.05s; }
+.product-item-fullwidth:nth-child(2) { animation-delay: 0.1s; }
+.product-item-fullwidth:nth-child(3) { animation-delay: 0.15s; }
+.product-item-fullwidth:nth-child(4) { animation-delay: 0.2s; }
+.product-item-fullwidth:nth-child(5) { animation-delay: 0.25s; }
