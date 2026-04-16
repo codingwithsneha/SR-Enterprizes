@@ -2,7 +2,7 @@
   "name": "swara-enterprises",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://codingwithsneha.github.io/SR-Enterprizes",
+  "homepage": "https://swarae.in",
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
     "react": "^19.2.4",
